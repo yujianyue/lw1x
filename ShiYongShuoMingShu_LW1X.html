@@ -1,436 +1,400 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="GB2312" />
-<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
- <title>Php+Xls������ҳ��ͨ�ÿ��Գɼ����ϵͳ:Linux(Utf-8)</title>
- <meta name="Keywords" content="Php,Xls,������ҳ��,Դ������,ͨ��,���Գɼ�,���ϵͳ,Linux(Utf-8)" />
-<meta name="author" content="yujianyue, admin@ewuyi.net">
-<meta name="copyright" content="www.12391.net">
-<style type="text/css">
-*{margin:0;padding:0;font-size:14px;line-height:150%;font-family:"microsoft yahei",SimHei;}
-body,html{height:100%;text-align:left;overflow:hidden;background-color:#d0d0d0;}
-.html{height:100%;width:100%;position:relative;overflow-y:auto;overflow-x:hidden;}
-
-strong{color:red;}
-ol {list-style:none}
-a{color:blue;text-decoration:none;}
-a:hover {text-decoration:none;background-color:#0180CF;color:#FFFFFF;}
-
-.c a{border:1px solid #006AA8;padding:10px 15px;font-weight:600;color:#006AA8;}
-.c a:hover{border:1px solid #006AA8;background:#006AA8;color:white;}
-
-
-b{color:red;}
-.r {text-align:right;width:30%;}
-.l {text-align:left;color:green;}
-.c {text-align:center;line-height:40px;}
-.pr { color:#060!important; }
-.simg{width:50%;min-width:88px;max-width:188px;}
-
-#divs{margin:0 auto;min-height:98%;position:relative;box-sizing:border-box;}
-.divs{width:100%;max-width:1200px;min-width:300px;background-color:#F0F0F0;}
-strong{color:red;}
-
-#main{margin:22px auto;padding:30px 1px;width:100%;min-width:1200px;}
-h1{font-size:36px;line-height:180%;font-weight:bold;text-align:center;margin:2px 4px;}
-
-h2{font-size:24px;line-height:180%;font-weight:bold;margin:4px 8px;color:red;}
-h3{font-size:18px;line-height:150%;font-weight:bold;margin:2px 4px;color:green;}
-h4{font-size:16px;line-height:120%;margin:1px 2px;font-weight:300;color:blue;}
-
-h5{font-size:14px;line-height:120%;font-weight:300;margin:1px 2px;color:blue;}
-
-form{margin:24px auto;text-align:left;width:95%;}
-.select{margin:14px 0;height:39px;overflow:hidden;padding:0;}
-.select{position:relative;background-color:white;border:1px #CACACA solid;}
-select{width:100%;padding-left:9px;border:0px;height:40px;-webkit-appearance:none;}
-option{height:40px;line-height:40px;outline:none;line-height:40px;}
-.mere{position:absolute;top:0px; right:0px;}
-textarea{width:100%;min-height:40px;border:1px solid #ccc;}
-input[type=text]{width:100%;padding-left:9px;border:0px;outline:none;height:39px;line-height:40px;}
-input[type=file]{width:100%;border:0px;font-size:28px;height:39px;max-width:468px;line-height:39px;}
-input[type=submit]{padding:0px 15px;line-height:40px;background-color:#0180CF;border:1px #006AA8 solid;color:#FFFFFF;}
-input[type=button]{padding:0px 15px;line-height:40px;background-color:#0180CF;border:1px #006AA8 solid;color:#FFFFFF;}
-
-/*������*/
-#menu {margin:0px auto;position:fixed;top:0px;width:100%;max-width:1200px;z-index:10;display:block;background-color:#F0F0F0;}
-#menu_list {height:39px;border-bottom:2px #006AA8 solid;text-align:center;list-style:none;}
-#menu_list a{background:#F0F0F0;line-height:38px;color:#006AA8;font-weight:bold;}
-#menu_list li{padding:0 15px;min-width:108px;border:0px solid white;margin:0 0 0 4px;float:left;position:relative;z-index:11;}
-#menu_list li .title{display:block;}
-#menu_list a:hover{border-top:1px solid #006AA8;background:#006AA8;color:white;}
-.sub_menu{padding:0 5px 5px 5px;min-width:188px;background:gray;position:absolute;left:0;top:38px;display:none;}
-.sub_menu a{border:1px solid #006AA8;color:#006AA8;display:block;}
-.sub_menu a:hover{border:1px solid #006AA8;background:#006AA8;color:white;}
-
-fieldset{margin:10px auto;border:0px;border-top:1px solid #ccc;}
-legend{color:blue;font-size:18px;text-align:center;}
-.table{margin:10px auto;width:90%;min-width:968px;color:black;border-bottom:1px solid #ccc;border-right:1px solid #ccc;}
-.table td{border-left:1px solid #ccc;height:32px;border-top:1px solid #ccc;padding:1px;font-size:12px;text-align:center;}
-.tt{background:#eeeeee;font-weight:bold;color:#016493;font-size:28px;}
-
-
-#boto{margin:0 auto;width:100%;text-align:center;max-width:1200px;min-width:300px;position:fixed;z-index:22;bottom:0px;display:block;}
-.boto{background-color:#ADADAD;color:#000;text-shadow: 0 1px 1px #fff;line-height:180%;}
-</style>
-</head>
-<body onLoad="inst();">
-<div class="html">
-<div class="divs" id="divs">
-<div id="menu"> 
-<ul id="menu_list">
-<li class="menu"><a href="#" class="title">��׼���ϵ��</a>
-<dl class="sub_menu">
-
-<a href="http://add.chafenba.com/?type=cha&isde=0" target="_blank" class="title">���ò��(�Ƽ�)</a>
-<a href="http://add.chafenba.com/?type=api&isde=0" target="_blank" class="title">���ں�����ʽ��ѯ��</a>
-<a href="http://add.chafenba.com/?type=sai&isde=0" target="_blank" class="title">��������������</a>
-<a href="http://add.chafenba.com/?type=sas&isde=0" target="_blank" class="title">����������ʾ��</a>
-<a href="http://add.chafenba.com/?type=soo&isde=0" target="_blank" class="title">��������������</a>
-<a href="http://add.chafenba.com/?type=sox&isde=0" target="_blank" class="title">����������ѡ���</a>
-
-<a href="http://asp.96448.cn" target="_blank" class="title">aspԴ����޺�̨</a>
-<a href="http://aspcha.96448.cn" target="_blank" class="title">aspԴ����к�̨</a>
-<a href="http://php.96448.cn" target="_blank" class="title">PHPԴ����޺�̨</a>
-<a href="http://phpa.96448.cn" target="_blank" class="title">PHPԴ����к�̨</a>
-
-</dl></li>
-<li class="menu"><a href="#" class="title">ģ������ϵ��</a>
-<dl class="sub_menu">
-
-<a href="http://add.12391.net/?type=sai&isde=0" target="_blank" class="title">��������������</a>
-<a href="http://add.12391.net/?type=sas&isde=0" target="_blank" class="title">����������ʾ��</a>
-<a href="http://add.12391.net/?type=soo&isde=0" target="_blank" class="title">��������������</a>
-<a href="http://add.12391.net/?type=sox&isde=0" target="_blank" class="title">����������ѡ���</a>
-
-<a href="http://soso.96448.cn" target="_blank" class="title">aspԴ����޺�̨</a>
-<a href="http://soso.96448.cn" target="_blank" class="title">aspԴ����к�̨</a>
-<a href="http://phps.96448.cn" target="_blank" class="title">PHPԴ����޺�̨</a>
-<a href="http://phpso.96448.cn" target="_blank" class="title">PHPԴ����ǿ��</a>
-
-</dl></li>
-
-<li class="menu"><a href="#" class="title">��¼��ѯϵ��</a>
-<dl class="sub_menu">
-
-<a href="http://add.yichaxin.com/?type=cha&isde=1" target="_blank" class="title">���ò�ֵ�¼��ѯ��</a>
-<a href="http://add.yichaxin.com/?type=dec&isde=1" target="_blank" class="title">�����¼��ѯ���˰�</a>
-<a href="http://add.yichaxin.com/?type=sai&isde=1" target="_blank" class="title">���������������¼��ѯ</a>
-<a href="http://add.yichaxin.com/?type=sas&isde=1" target="_blank" class="title">��������������ʾ��</a>
-<a href="http://add.yichaxin.com/?type=soo&isde=1" target="_blank" class="title">��������������</a>
-<a href="http://add.yichaxin.com/?type=sox&isde=1" target="_blank" class="title">����������ѡ���</a>
-
-<a href="https://item.taobao.com/item.htm?id=545535124887" target="_blank" class="title">��¼��ѯԴ���</a>
-<a href="https://item.taobao.com/item.htm?id=528187132312" target="_blank" class="title">���ںŰ󶨲�ѯ��</a>
-<a href="https://item.taobao.com/item.htm?id=528187132312" target="_blank" class="title">����齱����</a>
-<a href="https://item.taobao.com/item.htm?id=528187132312" target="_blank" class="title">������ѯ��ǿ��</a>
-
-</dl></li>
-
-<li class="menu"><a href="#" class="title">������ز�ѯ</a>
-<dl class="sub_menu">
-<a href="http://add.yichaxin.com/?type=ban&isde=0" target="_blank" class="title">���ںŰ󶨲�ѯ</a>
-<a href="http://add.echadan.com/" target="_blank" class="title">�鷢�����</a>
-<a href="http://ada.echadan.com/" target="_blank" class="title">������Ȩ��ѯ</a>
-<a href="http://ade.echadan.com/" target="_blank" class="title">֤��ɼ���ѯ</a>
-<a href="http://add.mabida.cn/" target="_blank" class="title">��α��ѯ</a>
-<a href="http://add.mabida.com/" target="_blank" class="title">���뷢��</a>
-<a href="http://add.mabida.com/" target="_blank" class="title">����齱</a>
-<a href="http://add.mabida.com/" target="_blank" class="title">�������</a>
-<a href="http://12391.net/" target="_blank" class="title">���Դ��</a>
-<a href="https://aiyaha.taobao.com/" target="_blank" class="title">����Դ��</a>
-</dl></li>
-
-<li style="float:right;margin:0 10px 0 0;">
-<a href="http://www.12391.net" target="_blank" class="title">������ҳ</a>
-</li>
-
-</ul>
-
-</Div>
-<script type="text/javascript" >
-var menu_list = document.getElementById("menu_list").childNodes;
-for (var i=0;i<menu_list.length;i++){
- if (menu_list[i].className=="menu"){
- menu_list[i].onmouseover = function(){fnNav(this,"block")};
- menu_list[i].onmouseout = function(){fnNav(this,"none")};
+    <meta charset="GBK">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Php+Xls电脑网页版通用考试成绩查分系统(查询):Linux(Utf-8)</title>
+    <style>
+ *{box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif;}
+ body{margin:0;padding:10px;background-color:#f5f5f5;color:#333;}
+ .container{max-width:1200px;margin:0 auto;background:white;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.1);overflow:hidden;}
+ .header{background:#3498db;color:white;padding:5px;text-align:center;}
+ .tabs{display:flex;background:#f1f1f1;border-bottom:1px solid #ddd;}
+ .tab-btn{padding:12px;cursor:pointer;background:#f1f1f1;border:none;outline:none;transition:0.3s;font-size:16px;border-right:1px solid #ddd;}
+ .tab-btn:hover{background:#ddd;}
+ .tab-btn.active{background:white;font-weight:bold;color:#3498db;border-bottom:3px solid #3498db;}
+ .tab-content{display:none;padding:12px;animation:fadeEffect 0.5s;}
+ @keyframes fadeEffect{from{opacity:0;}
+ to{opacity:1;}
  }
-}
-function fnNav(obj,flag){
- obj.getElementsByTagName("dl")[0].style.display = flag;
-}
-</script>
+ .tab-content.active{display:block;}
+ table{width:100%;border-collapse:collapse;margin:8px 0;}
+ th,td{border:1px solid #ddd;padding:6px;text-align:left;}
+ th{background-color:#f2f2f2;}
+ tr:nth-child(even){background-color:#f9f9f9;}
+ a{color:#3498db;text-decoration:none;}
+ a:hover{text-decoration:underline;}
+ b{color:red;text-decoration:none;}
+ .notice{color:blue;ont-size:18px;border-left:6px solid #3498db;padding:5px;margin:5px 0;}
+ h1{font-size:22px;}
+ h3{color:#3498db;border-bottom:1px solid #eee;padding-bottom:8px;}
+ h4{color:#555;margin:6px 0;font-weight:normal;} 
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Php+Xls电脑网页版通用考试成绩查分系统(查询):Linux(Utf-8) 使用说明书</h1>  
+        </div>
 
-
-<div class="main" id="main">
-
-<fieldset class="w">
-<legend>ͨ�óɼ���ѯϵͳ �������</legend>
-<div class="c" id="tishi">
-���ס�ٷ�������ַ: <b>12391.net</b>��
-</div>
-</fieldset>
-
-<fieldset class="w">
-<legend>���˵��</legend>
-<div class="c" id="tishi">
-<h2>Php+Xls������ҳ��ͨ�ÿ��Գɼ����ϵͳ:Linux(Utf-8)</h2>
-���������Ӧ���ڸ��ֳɼ���ѯ�����ʲ�ѯ����ҵ�Ѳ�ѯ��ˮ��Ѳ�ѯ���ְ��ѯ��¼ȡ��ѯ��������ѯ��֤���ѯ���޸Ĳ�Ƶ�������Բ��ߵĸ��ֲ�ѯϵͳ��
-</div>
-<div class="l" id="tishi">
 <table cellspacing="0" class="table">
-<thead>
-<tr class="tr" >
-<td colspan="11"><strong>�򵥡��������գ�ͨ�á����á���ʵ�ã���������أ�</strong></td></tr>
-
 <tr class="tt">
-<td >�汾�ͺ�</td>
-<td >�������</td>
-<td >��ҳ�汾</td>
-<td >����ϵͳ</td>
-<td >���ݿ�����</td>
-<td >���ݿ��ģ</td>
-<td >������</td>
-<td >Դ���С</td>
-<td >Դ������</td>
-<td >���ֽ̳�</td>
-<td >��Ƶ�̳�</td>
-</tr></thead>
-<tbody>
+<td >版本型号</td>
+<td >编程语言</td>
+<td >网页版本</td>
+<td >操作系统</td>
+<td >数据库类型</td>
+<td >数据库规模</td>
+<td >最后更新</td>
+<td >官网演示</td>
+<td >源码下载</td>
+<td >文字教程</td>
+<td >视频教程</td>
+</tr>
 <tr class="tr"><td scope="row">LW1X</td>
 <td>Php</td>
-<td>������ҳ��</td>
+<td>电脑网页版</td>
 <td>Linux(Utf-8)</td>
 <td>Xls</td>
-<td>3ǧ*N</td>
+<td>3千*N</td>
+<td>2025/7/11 3:10:40</td>
+<td><a href="http://php.96448.cn/LW1X/">官网演示</a></td>
 <td>-</td>
-<td>-</td>
-<td><a href="http://12391.net/Down_Zips.php?d=LW1X.zip">�������</a></td>
-<td><a href="ShiYongShuoMingShu_LW1X.html">����˵��</a></td>
-<td><a href="http://down.12391.net/PhpXls">��Ƶ�̳�</a></td>
+<td><a href="http://php.96448.cn/LW1X/_LW1X_ShiYongShuoMing.html">最新教程</a></td>
+<td>见后</td>
 </tr>
 
-<!--<h1>Php+Xls������ҳ��ͨ�ÿ��Գɼ����ϵͳ:Linux(Utf-8)</h1>-->
+<!--<h1>Php+Xls电脑网页版通用考试成绩查分系统(查询):Linux(Utf-8)</h1>-->
 
-<tr class="ts">
-<td colspan="11" style="text-align:left;">
-<h2>ʹ�ý��飺</h2>
-<h4>ֱ��ͨ��FTP�ϴ�����ʹ�ã�������ֱ���ϴ���ѯ���ԡ�</h4>
-<h4>ǰ̨���ʣ�http://��ַ/Ŀ¼/ (�ϴ�ֱ��ʹ��,����mysql���ݿ�ȵ�֧��)</h4>
-<h4>Ȼ��notepad++��inc/conn.Php<!--admin@ewuyi.net-->�鿴��������ҳ��Ӧ��ϵ��</h4>
-<h4>Ȼ���Ĭ���Դ������ݿ�ԱȲ�ѯ������鿴��Ӧ��ϵ��</h4>
-<h4><!--LX-->xls��򿪷�ʽ������ֱ��˫����,xls��ʽ��Excel�ļ��鿴��</h4>
-<h4></h4>
-<h2>ʹ����֪��</h2>
-<h4>1. ���𽫱�ϵͳ�������߷��治��������;</h4>
-<h4>2. ʹ�ñ�ϵͳ��ע����˽����</h4>
-<h4>3. �����ڱ���λ�Ĳ�ѯ������ð��������λ������ѯ��</h4>
-<h4></h4>
-<h4></h4>
-<h2>ʹ����;��</h2>
-<h4>�ʺ��޸Ĳ�Ƶ���������Բ��ߵĳɼ������ʡ���ҵˮ��ѵȸ��־�׼��ѯ��</h4>
-<h4>1. �ɼ���ѯϵͳ,ÿ��ѧУ,��������,��ҵ��λ���Եȶ������õ�</h4>
-<h4>2. ���ʲ�ѯϵͳ,ÿ��ѧУ,��������,��ҵ��λ���Եȶ������õ�</h4>
-<h4>3. ��ҵ�Ѳ�ѯϵͳ,ÿ����ҵ,ѧУ,���е�λ�������õ�</h4>
-<h4>4. ˮ��Ѳ�ѯϵͳ,С��,��ҵ��˾,��ѧ���ҵ�</h4>
-<h4>5. ������ְ��ѯ,¼ȡ��ѯ,������ѯ��֤���ѯ���޸Ĳ���ĸ��ֲ�ѯϵͳ</h4>
-<h4></h4>
-<h4></h4>
-<h2>��ɫ����</h2>
-<h4></h4>
-<h3>1. ���ͨ��</h3>
-<h4>��Դ�������С��������������ݿ⣬���Կ������ڸ��ֶ�ά����ѯ��</h4>
-<h4>�ɼ���ѯ��ˮ�����ҵ�Ѳ�ѯ��¼ȡ���ְࡢ�����ᡢ���������ѯ��ͨ�á�</h4>
-<h4></h4>
-<h3>2. С������չ</h3>
-<h4>����Դ�루����ʾ���ݣ�ֻ��30-50KB����������������Ȼ������</h4>
-<h4>���ڳ���Ա�������գ�������������ٶȲ����Ͷ��ο����ɱ���</h4>
-<h4></h4>
-<h3>3. ��Ϊ��ȫ</h3>
-<h4>Դ��ֻ����ҳ�棬����ֻ����д����û��sqlע��ȷ��ա�</h4>
-<h4>��ǰ����������Ǽ�ʮMB���ļ�Խ��Խ���ӣ���ȫԽ�������ա�</h4>
-<h4></h4>
-<h3>4. ������</h3>
-<h4>���谲װ����ʼ������Ҳ�����޸Ĳ������Ÿ�Ŀ¼������Ŀ¼ֱ��ʹ�á�</h4>
-<h4></h4>
-<h4>FTP��������ʵ�ֺ�̨���ܣ��ϴ����ռ伴��ʹ�á�</h4>
-<h4>FTP�����ϴ������ݿ��ܸ������ķ�������Դ��Ҳ������������ռ��ϴ���С�ͳ�ʱʱ��ȡ�</h4>
-<h4>FTP�ϴ��ɶ��ļ�һ��ȫ�ϣ���֧�ֶϵ������ȣ��Է�����Ӱ��С��</h4>
-<h4>����ɾ�����˵��ļ���FTP��������ɾ����</h4>
-<h4></h4>
-<h3>5. �ͺ��ڴ�</h3>
-<h4>����Mysql�ȣ����ڴ������Ҳ��������(Mysql���ܶ��20%+�������ڴ�)��</h4>
-<h4></h4>
-<h3>6. �ͺ�����</h3>
-<h4>���ڴ��ҳ�浥js�ļ��ͼ���KB������ͼƬ�͸����ˡ�</h4>
-<h4>һ����ҳ��������1MB������ѯҳһ��ҳ��ֻ��30KB���ҡ�</h4>
-<h4>�൱����ͬ�ȴ�����Դ�£����粢��������������ʮ����</h4>
-<h4>Ŀǰ�����ơ���Ѷ�Ƶ�8MB��ʵ��1MB���Ĵ�����2000Ԫÿ�ꡣ</h4>
-<h4>���ԣ���ʡ�ܶ�������õ�ͬʱ�������������ѯ�Ĳ�������</h4>
-<h4></h4>
-<h3>7. �ͺĶ�д</h3>
-<h4>����ѯ����ֻ����д��С�ɵ���ҳҲ����JS��ͼƬ�Ķ�ȡ�����Լ������Դ��</h4>
-<h4></h4>
-<h2>ʹ�ò��裺</h2>
-<h4></h4>
-<h3>�����޸�</h3>
-<h4><!--LX-->1.����notepad++����±���inc/conn.php�޸���վ���⡢��ѯ�����Ȳ���,��������ļ�����������˵����</h4>
-<h4></h4>
-<h3>����ת��</h3>
-<h4><!--LX-->1.ȥ�ߣ����¶�ά�����֣����£������б��⣬�Ժ�һ��һ�����ݣ���</h4>
-<h4><!--LX-->2.�����б���Ļ��úϲ�Ϊһ��; ����кϲ���Ԫ�񣺲�ֵ�Ԫ���Ѹ���Ԫ�������ǰ�����ݡ�</h4>
-<h4><!--LX-->3.ȥ���ࣺɾ�����õı���ֻ��һ������sheet1�������ѯʧ���볢������Ϊ.xls�ļ�(excel97-2003)��</h4>
-<h4></h4>
-<h4></h4>
-<h3>Դ���ϴ�</h3>
-<h4>1.Դ����ϴ�������ԭ�нṹ�ϴ�����վ����ֱ��ʹ�ã��ϴ���ע����루UTF-8<!--echafen.com-->����������Կ���Ƶ�̡̳�</h4>
-<h4></h4>
-<h3>�����ϴ�</h3>
-<h4>1.�ϴ���ʽ��FTP�����ϴ����Ƽ�����Զ�������ϴ��������ļ��������߹������ȡ�</h4>
-<h4>2.ͨ��ָ�����루���ַ�����UTF-8<!--echafen.com-->���ϴ���������ݣ��ϴ�����վ���ݿ�Ŀ¼�¡�</h4>
-<h4>3.������ѯ������ϴ�һ�����ݡ�ע���׺��ԭ����һ�¡���ѯ����Ҫ��inc/conn.Php<!--admin@ewuyi.net-->���õ�һ����</h4>
-<h4>4.���ٲ�ѯ�����ɾ�����ݿ�Ŀ¼�¶�Ӧ���ļ�����</h4>
-<h4>5.���Ĳ�ѯ�����������Ӧ���ļ�����</h4>
-<h4>6.�޸��������ݣ��ϴ���ת�������滻ԭ����ͬ�����ݡ�</h4>
-<h4></h4>
-<h4></h4>
-<h3>�ر�ǿ��(����ά������)</h3>
-<h4>1.ֻ֧��һ���б��⣺�������б���ϲ�Ϊһ�У��൱��Ϊÿ��������ֻ�б��⣩</h4>
-<h4>2.��֧�ֺϲ���Ԫ�񣺲�ֵ�Ԫ���Ѹ���Ԫ�������ǰ�����ݡ�</h4>
-<h4>3.���⣺Excel��Csv�汾�ĸ�ȫ���˵������ҳ��β����ά���淶</h4>
-<h4></h4>
-<h3>��Ƶ�̳̲ο���</h3>
-<h4></h4>
-<h4></h4>
-<h2>���鼼�ɣ�</h2>
-<h4>1. ��ѯ�������ý���ʹ������/ѧ��/׼��֤/����֤/���ŵ�,�������ð༶�ȿ����ж�����������ݡ�</h4>
-<h4>2. �����п����в������ǵ���ַ������±��򿪶�Ӧ�ļ��滻Ϊ���Լ�����ַ���ɡ����û�а��վͲ�Ҫ�޸ġ�</h4>
-<h4>3. ���ѣ������������룬�����������޸ģ�����ʹ������֤������ע���Сд����������ͳһΪ��д,��ô����ҳ��˵���£���</h4>
-<h4>4. �����������Ƽ�¼����,������Ӱ���ٶȣ����鱣��ÿ�����ݿ��ļ���ǧ�����ڣ����˿��Է���ֿ⣺�ּ������ݿ�š�</h4>
-<h4>5. Excel���������Զ��壨ֻҪ�Ƕ�ά��������Ҳ�����Ҽ�->Excel�򿪲鿴Excelģ�壨����ֱ�ӱ��棬�谴�����ṩ�ķ�����</h4>
-<h4></h4>
-<h4></h4>
-<h2>�쳣�ų���</h2>
-<h4>������ִ������ȼ�����õĲ�ѯ�����Ƿ�һ�£���鵥Ԫ���Ƿ�����س����к��Ʊ���TAB��</h4>
-<h4>1. �滻�����ж��,�������аٶȣ�Excel�滻�س�����,Excel�滻�Ʊ���Tab �ο����ྭ�顣</h4>
-<h4>2. ֱ���滻��1��Excel�س��滻Ctrl+H--->�������ݴ�����--->��סAlt+С����1+С����0--->ȫ���滻--->���档</h4>
-<h4>3. ֱ���滻�Ʊ�����Excel�س��滻�Ʊ���--->���ư����Ʊ�����--->ճ�������±�--->�滻�Ʊ���--->���Ƽ��±�����ճ����EXCEL�С�</h4>
-<h4>4. Excel�滻��ɺ󣬰���4-6��������ת��Excel���ϴ��滻���Ǳ༭excel������תһ�Σ���������TXT�������޸ġ�</h4>
-<h4>5. �滻�س����Ʊ����������ܻ�ܶ࣬��Щֱ���滻����Щ�ù�ʽ��WPS�滻"^p"�ȡ���������԰ٶ�������������</h4>
-<h4></h4>
-<h4></h4>
-<h2>������˵��</h2>
-<h4>1. �޸�ԽƵ��Խ���ʺ�(�ɼ������ʡ�ˮ��ѵ�һ�㶼һ���Գ������޸�)</h4>
-<h4>2. ֻ�ʺ϶�ά��(һ�����ݿⶼ���ö�ά�ṹ,�����б���,�Ժ�һ��һ������)</h4>
-<h4>3. �����Ƶ����¼�������鵥�������3ǧ<!--12391.net-->�����ڣ��ɷֿ⣬���⻥��Ӱ�죩</h4>
-<h4>4. �ݲ�֧�ֹ�ʽ��ͼƬ����ַ���ɸ��Ѷ��ơ�</h4>
-<h4>5. ���𽫱�ϵͳ�������߷��治��������;</h4>
-<h4>6. ʹ�ñ�ϵͳ��ע����˽����</h4>
-<h4>7. �����ڱ���λ�Ĳ�ѯ������ð��������λ������ѯ��</h4>
-<h4></h4>
-<h4></h4>
-<h2>�Ƽ�1���������Դ�룬����ٶ�:</h2>
-<h4></h4>
-<h4>7384���й�������ѯϵͳԴ��</h4>
-<h4>7384ѧ���ɼ���ѯϵͳ</h4>
-<h4>asp+excel����;��ѯϵͳ</h4>
-<h4>asp+excelͼ�����߼���ϵͳ</h4>
-<h4>asp+excelͼ�����߼���ϵͳ�ֻ���</h4>
-<h4>asp+txt ͨ�ò�ѯϵͳ�ֻ���</h4>
-<h4>asp+txt ͨ�ù��ʲ�ѯϵͳ</h4>
-<h4>asp+txt ά�޵��ݽ��Ȳ�ѯϵͳ</h4>
-<h4>asp+txtͨ�óɼ���ѯϵͳ</h4>
-<h4>aspͨ������ʽֵ���ѯϵͳ</h4>
-<h4>PHP+Csv(Excel)ͨ�óɼ���ѯϵͳ</h4>
-<h4>PHP+Csv(Excel)ͨ�óɼ���ѯϵͳ�ֻ���</h4>
-<h4>PHP+excel����;��ѯϵͳ</h4>
-<h4>PHP+excelͨ�óɼ���ѯϵͳ</h4>
-<h4>PHP+excelͨ�óɼ���ѯϵͳ</h4>
-<h4>php+excelͨ�ÿα���ѯϵͳ</h4>
-<h4>php+Txt �ɼ���ѯϵͳͨ�ð�</h4>
-<h4>php+Txt����;��ѯϵͳ</h4>
-<h4>����������ѯϵͳС͵</h4>
-<h4>asp����֤������ѯ����ϵͳ</h4>
-<h4>asp��վ�ٶ�������ѯϵͳ</h4>
-<h4>php+access ͨ�ÿ��Բ��ϵͳ</h4>
-<h4>php+sqlite ͨ�óɼ���ѯϵͳ</h4>
-<h4></h4>
-<h2>�Ƽ�2���������Դ�����˵��:</h2>
-<h4>�����ѹ�����asp+txt,asp+excel,php+txt,php+xls,php+csv,php+sqlite,php+access���ߴ�ϵ�в�ѯ</h4>
-<h4>��������ǰ���ϵ�о����ֻ���͵��԰�Ĵ��ڣ�phpǰ����ϵ��(����3-5ϵ�л���linux�棬windows��)</h4>
-<h4>���й����汾��Ϊ��׼�����ڣ���ѯ�棬���������ģ���������������ע12391.net</h4>
-<h4></h4>
-<h4></h4>
-<h2>�Ƽ�2�����ཨ�����ʷ���</h2>
-<h4></h4>
-<h3>��1. ��Ҫ��ϵ�и���(60+���汾)�汾���м���ָ���ȣ�</h3>
-<h4>Asp�� <a target=_blank href='https://item.taobao.com/item.htm?id=45703415332' >https://item.taobao.com/item.htm?id=45703415332</a>  </h4>
-<h4>Php�� <a target=_blank href='https://item.taobao.com/item.htm?id=45808268273' >https://item.taobao.com/item.htm?id=45808268273</a>  </h4>
-<h4>��ѡ1�� <a target=_blank href='https://item.taobao.com/item.htm?id=520167788658' >https://item.taobao.com/item.htm?id=520167788658</a> </h4>
-<h4>�༶������ <a target=_blank href='https://item.taobao.com/item.htm?id=43263796985' >https://item.taobao.com/item.htm?id=43263796985</a> </h4>
-<h4></h4>
-<h3>��2. ��ϵ�о�ͨ��FTP���߻�Զ������������������߰��̨����</h3>
-<h4>��ҳֱ���(��ʱ��)�� <a target=_blank href='https://item.taobao.com/item.htm?id=520023732507' >https://item.taobao.com/item.htm?id=520023732507</a> </h4>
-<h4>��ҳֱ���(Դ���)�� <a target=_blank href='https://item.taobao.com/item.htm?id=528692002051' >https://item.taobao.com/item.htm?id=528692002051</a> </h4>
-<h4></h4>
-<h3>��3. ����Ա�����Ҫ��ϸ�,���Լ�û�м���Ա�����������ռ�ȣ�</h3>
-<h4>�󶨲�ѯ���˰�(��ʱ��)��<a target=_blank href='https://item.taobao.com/item.htm?id=44248394675' >https://item.taobao.com/item.htm?id=44248394675</a>  </h4>
-<h4>�����¼��ѯ��(��ʱ��)��<a target=_blank href='https://item.taobao.com/item.htm?id=43193387085' >https://item.taobao.com/item.htm?id=43193387085</a> </h4>
-<h4></h4>
-<h3>��4. ����Ա�����Ҫ���ظ�,�����Լ�����Ա���ռ䡢�����ȣ�</h3>
-<h4>�󶨲�ѯ���˰�(Դ���)��<a target=_blank href='https://item.taobao.com/item.htm?id=44248394675' >https://item.taobao.com/item.htm?id=44248394675</a> </h4>
-<h4>�����¼��ѯ��(Դ���)��<a target=_blank href='https://item.taobao.com/item.htm?id=43193387085' >https://item.taobao.com/item.htm?id=43193387085</a> </h4>
-<h4></h4>
-<h3>��5. ��ѯ����ֱ�鹫�ںŰ�(�����¼ֱ�ӷ���ָ����ѯ������ѯ)��</h3>
-<h4>���ں�ֱ���(��ʱ��)�� <a target=_blank href='https://item.taobao.com/item.htm?id=529624346797' >https://item.taobao.com/item.htm?id=529624346797</a>  </h4>
-<h4>���ں�ֱ���(Դ���)�� <a target=_blank href='https://item.taobao.com/item.htm?id=520496908275' >https://item.taobao.com/item.htm?id=520496908275</a>  </h4>
-<h4></h4>
-<h3>��6. ����ѯֻ�ܾ�׼��ѯ�Լ��������ݣ���������������ģ����ѯ��</h3>
-<h4>������ģ����ѯ�� <a target=_blank href='https://item.taobao.com/item.htm?id=520167788658' >https://item.taobao.com/item.htm?id=520167788658</a>  </h4>
-<h4>ģ����ѯphp��1�� <a target=_blank href='https://item.taobao.com/item.htm?id=543256127409' >https://item.taobao.com/item.htm?id=543256127409</a>  </h4>
-<h4>ģ����ѯphp��2�� <a target=_blank href='https://item.taobao.com/item.htm?id=540197845648' >https://item.taobao.com/item.htm?id=540197845648</a> </h4>
-<h4></h4>
-<h3>��7. �����ݷ�����ѯϵͳ�������ںŲ�ѯ���������û����ٲ�ѯ������Ϣ��</h3>
-<h4>��ʱ�丶�ѣ�<a target=_blank href='https://item.taobao.com/item.htm?id=543880972347' >https://item.taobao.com/item.htm?id=543880972347</a>  </h4>
-<h4>Դ���빺��<a target=_blank href='https://item.taobao.com/item.htm?id=543880972347' >https://item.taobao.com/item.htm?id=543880972347</a>  </h4>
-<h4></h4>
-<h3>��8. �����α��Դ��ѯϵͳ(ɨ��ֱ��+��ҳ��ѯ+���ںŻظ���ѯ)��</h3>
-<h4>Դ���빺��<a target=_blank href='https://item.taobao.com/item.htm?id=43525422046' >https://item.taobao.com/item.htm?id=43525422046</a> </h4>
-<h4></h4>
-<h3>��9. php+excel�α���ѯϵͳ��������Ϣ����ϵͳ��ֱ����ʾExcel����</h3>
-<h4>Դ���빺��<a target=_blank href='https://item.taobao.com/item.htm?id=537645721513' >https://item.taobao.com/item.htm?id=537645721513</a> </h4>
-<h4></h4>
-<h3>��10. ���ں������ȡ��Ϣϵͳ��������롢�ְࡢ�齱�ȹ��ܿ���</h3>
-<h4>Դ���빺��<a target=_blank href='https://item.taobao.com/item.htm?id=525228396981' >https://item.taobao.com/item.htm?id=525228396981</a></h4>
-<h4> </h4>
-<h4></h4>
-<h3><h2>�︽����ά���淶(������鲽��)��</h2></h3>
-<h4>1. ����ֻ�е�һ��Ϊ�б��⣨Ҳ�����ֶΣ��������б������Ⱥϲ���</h4>
-<h4>2. ���ϴ������������ֶεð�����Ϊ��ѯ��������(�ҵ������õĲ�ѯ����)��</h4>
-<h4>���鼼�ɣ�����,ѧ��,����,׼��֤��,֤���ŵ��ʺ���Ϊ��ѯ�������༶,��ַ���ж�������Ĳ��ʺ���Ϊ��ѯ������</h4>
-<h4>3. ��ɾ����ɾ���Ƕ�ά�������ݣ�ֻ���������ݵľ������򣩡�</h4>
-<h4>�����ά�����棨�Ҳࣩ�п��У����ѯ���������ʾ��-������Ŀ�����ڱ���ɾ����Ӧ���к������ύ��</h4>
-<h4>�����ά�����棨���£��п��У����п���̫���Ӱ������ٶȡ����ڱ���ɾ����Ӧ���к������ύ��</h4>
-<h4>4. �ڶ��п�ʼÿ��һ��������ÿ������ͬ������������ѧ���������ж���������ѧ�ţ�����Ч,��Ȼ��ʾ������ҡ�</h4>
-<h4>5. ��Ϊ��ѯ�������н���ͳһӢ�ĵĴ�Сд,��������֤β��X�Ĵ�Сд��,Ȼ��ϵͳ���á�ҳ��ı�ע˵���¡�</h4>
-<h4>���������������ŵ�����Ϊ��ѯ��������Ϊ������������ᱻת��(����ո�ᱻ��� ),�ո�Ļ��������滻����</h4>
-<h4>6. �����ά��������ڻس����Ʊ����������滻�����忴��Ƶ�̡̳� </h4>
-</td>
-</tr>
+</table>
+
+<div class="notice">
+<strong>简单、灵活、易掌握；通用、易用、很实用！还免费下载！</strong>
+</div>
+
+<div class="tabs">
+ <button class="tab-btn active" onclick="openTab(event, 'desc')">系统介绍</button>
+ <button class="tab-btn" onclick="openTab(event, 'tiao')">使用条件</button>
+ <button class="tab-btn" onclick="openTab(event, 'yong')">适用用途</button> 
+ <button class="tab-btn" onclick="openTab(event, 'tips')">必读提示</button>
+ <button class="tab-btn" onclick="openTab(event, 'shuo')">使用说明</button>
+ <button class="tab-btn" onclick="openTab(event, 'qiao')">经验技巧</button>
+ <button class="tab-btn" onclick="openTab(event, 'yous')">特色优势</button>
+ <button class="tab-btn" onclick="openTab(event, 'xian')">局限性</button>
+ <button class="tab-btn" onclick="openTab(event, 'back')">建议反馈</button>
+ <button class="tab-btn" onclick="openTab(event, 'biao')">二维表说明</button>
+ <button class="tab-btn" onclick="openTab(event, 'soft')">吐血分享</button>
+</div>
+
+<div id="desc" class="tab-content active">
+<h3>先尝试可用性</h3>
+<h4>建议先不修改任何内容直接FTP整体上传到对应空间(传统虚拟主机/宝塔或护卫神创建的空间)测试。</h4>
+<h4>查询页面访问：http://域名/目录/ (上传直接使用mysql版除外)</h4>
+<h4>推荐本说明书都先看一遍,有助于快速入门。</h4>
+<h3>看规律再修改参数</h3>
+<h4>notepad++ 或 editplus 等编辑器 打开inc/conn.Php查看网页与 各参数 的对应关系。</h4>
+<h4>另外：inc文件夹下文件名为desc.txt的为查询页面说明文件(支持html)</h4>
+<h3>看数据库规律</h3>
+<h4>打开默认自带的数据库查看规律及对比查询结果有助于快速理解工作原理。</h4>
+<h4><!--LX-->xls版打开方式：可以直接双击打开,xls格式的Excel文件查看。</h4>
+<h3>经验要点</h3>
+<h4>内含中文名称大部分在线解压功能文件名乱码，建议FTP指定编码（UTF-8）上传。</h4>
+<h4>建议保留原始版本测试页面：原始版本正常而自己修改后异常说明是你操作问题。</h4>
+<h4>压缩包内含使用步骤等信息(HTML文件)；各文件都有他存在的意义建议保留。</h4>
+</div>
+<div id="tiao" class="tab-content">
+<h3>软硬件要求</h3>
+<h4>这是网站源码，你还需要网站空间、网站域名。国内空间你还需要工信部/公安部网站备案(都可能耗时半月)。</h4>
+<h4>更多软硬件相关说明书见压缩包下另外一个html格式文件（<b>ShiYongShuoMingShu_****.html</b>）。</h4>
+<h4>如果来不及可以使用我们的在线版本，详情百度：查分吧(chalide.cn) 或 易查薪(chalide.com)。</h4>
+<h3>工作能力</h3>
+<h4>需要管理员（使用者）具备FTP、域名绑定、网站空间使用、基本excel操作等技能。</h4>
+<h4>各款都可用，当然需要你细心，有相关经验更佳，建议由你身边熟练计算机和网络经验人使用。</h4>
+<h3>尊重原创</h3>
+<h4>你可以复制到多个空间用于多个用途，不得去除版权信息（保留署名权）；</h4>
+<h4>你可以二次开发以更好的符合你的需求，但不得：公开发布（保留发行权）。</h4>
+<h3>xls格式二维表</h3>
+<h4>所有版本数据都可以说平时编辑xls格式二维表，只是查询的时候相应转化。</h4>
+<h3>合法合规使用</h3>
+<h4>合法合规使用本查询系统，详情见后边【必读提醒】。</h4>
+</div>
+<div id="yong" class="tab-content">
+<h4>适合<strong>修改不频繁、保密性不高的</strong>成绩、工资、物业水电费等各种精准查询。</h4>
+<h4>模糊搜索版参考精准查询版，部分说明不适用模糊查询，比如用途等。</h4>
+<h3> 成绩查询系统</h3>
+<h4>每个学校,教育机构,事业单位考试等都可以用到</h4>
+<h3>工资查询系统</h3>
+<h4>每个学校,教育机构,事业单位考试等都可以用到</h4>
+<h3>物业费查询系统</h3>
+<h4>每个企业,学校,所有单位都可能用到</h4>
+<h3>水电费查询系统</h3>
+<h4>小区,物业公司,大学寝室等</h4>
+<h3>其他</h3>
+<h4>如分班查询,录取查询,考场查询、证书查询等修改不多的各种查询系统</h4>
+ </div>
+<div id="tips" class="tab-content">
+<h3>1.你上传的数据应该征得相关部门、单位同意。</h3>
+<h4>为了规避风险，建议让同事、领导小范围查询体验，同意后再公布查询。</h4>
+<h3>2.输入指定内容即可展现结果，请合理设置查询条件。</h3>
+<h4>比如表格有学号+姓名列，那么别只用姓名查，因为同名的都会都显示。</h4>
+<h3>3.只上传相关内容，别上传无关的个人隐私信息。</h3>
+<h4>比如通过学号+姓名查询成绩，就别上传身份证号、电话等无关信息。</h4>
+<h3>4.上传内容请不要带有立场观点。</h3>
+<h4>比如请勿用于黑名单查询等带有立场的查询用途。</h4>
+<h3>5.请合法合规使用。</h3>
+<h4>请勿将本系统用于政策允许范围以外的查询用途。</h4>
+<h4>不要冒名使用（底部简称请留本单位信息）。</h4>
+<h3>6.做好数据的防下载处理。</h3>
+<h4>你可以修改conn.Php数据库文件夹名称为你自己知道的内容同时修改对应文件夹名称。</h4>
+<h4>或者伪静态等方式设置该数据库文件后缀或文件夹不可下载。</h4>
+</div>
+<div id="shuo" class="tab-content">
+<h3>参数修改</h3>
+<h4><!--LX-->1.软件notepad++ 或 editplus或记事本打开inc/conn.php修改网站标题、查询条件等参数,具体见该文件见里面文字说明。</h4>
+<h3>数据转化</h3>
+<h4>步骤仅供参考，实际请参考默认自带数据规律（建议保留原始数据供以后参考）</h4>
+<h4><!--LX-->1.去边：留下二维表部分（留下：首行列标题，以后一行一条数据）。</h4>
+<h4><!--LX-->2.多行列标题的话得合并为一行; 如果有合并单元格：拆分单元格后把各单元格都填充拆分前的内容。</h4>
+<h4><!--LX-->3.去窘余：删除无用的表，只留一个表如sheet1。如果查询失败请尝试另存为.xls文件(excel97-2003)。</h4>
+<h3>源码上传</h3>
+<h4>1.源码的上传：保持原有结构上传到网站即可直接使用，上传请注意指定编码（UTF-8）上传。</h4>
+<h4>2.推荐上传软件：filezilla(可以指定编码上传)；不推荐在线解压：中文文件名解压后会乱码。</h4>
+<h4>在线解压如果乱码：可以修改文件名为中文后再试，实在不行就使用英文文件名。</h4>
+<h3>数据上传</h3>
+<h4>1.上传方式：FTP工具上传（推荐）；远程桌面上传；在线文件管理工具管理；等。</h4>
+<h4>2.通过指定编码（即字符集：UTF-8）上传代码和数据，上传到网站数据库目录下。</h4>
+<h4>3.新增查询类别：新上传一个数据。注意后缀和原来的一致。查询条件要和inc/conn.Php设置的一样。</h4>
+<h4>4.减少查询类别：请删除数据库目录下对应的文件名，</h4>
+<h4>5.更改查询类别：重命名相应的文件名。</h4>
+<h4>6.修改数据内容：上传新转的数据替换原来的同名数据。</h4>
+<h3>txt版数据 如单元格回车、制表符请先替换</h3>
+<h4>详细方法见【二维表规范】；其他xls,csv数据忽略本条说明。</h4>
+<h3>特别强调(即二维表规则)</h3>
+<h4>1.只支持一行列标题：即多行列标题合并为一行（相当于为每列重新这只列标题）</h4>
+<h4>2.不支持合并单元格：拆分单元格后把各单元格都填充拆分前的内容。</h4>
+<h4>3.更多内容参考本页结尾：二维表规范。</h4>
+</div>
+<div id="qiao" class="tab-content">
+<h3>合理设置查询条件</h3>
+<h4>查询条件设置建议使用姓名/学号/准考证/身份证/工号等,不建议用班级等可能有多种输入的内容。</h4>
+<h3>源码很小巧可以都打开看看</h3>
+<h4>程序中可能有不是你们的网址，你记事本打开对应文件替换为你自己的网址即可。如果没有把握就不要修改。</h4>
+<h3>数据的一些说明</h3>
+<h4>可以设置密码，但不可在线修改；可以使用身份证，但请注意大小写（比如数据统一为大写,那么输入页面说明下）。</h4>
+<h4>不建议包含特殊符号的列作为查询条件，因为特殊符号往往会被转义(比如空格会被变成 ),空格的话可以先替换掉。</h4>
+<h3>查询规模的说明</h3>
+<h4>程序本身不限制记录数量,但多了影响速度；建议保持每个数据库文件3千条以内，多了可以分类分库：分几个数据库放。</h4>
+<h3>其他（前面已说）</h3>
+<h4>内含中文名称大部分在线解压功能文件名乱码，建议FTP指定编码（UTF-8）上传。</h4>
+<h4>建议保留原始版本测试页面：原始版本正常而自己修改后异常说明是你操作问题。</h4>
+<h4>压缩包内含使用步骤教程等信息(HTML文件)；各文件都有他存在的意义建议保留。</h4>
+</div>
+<div id="xian" class="tab-content">
+<h3>局限性说明</h3>
+<h4>1. 修改越频繁越不适合(成绩、工资、水电费等一般都一次性出来不修改)</h4>
+<h4>2. 只适合二维表(一般数据库都采用二维结构,首行列标题,以后一行一条数据)</h4>
+<h4>3. 不限制单库记录数。建议单库控制在3千条以内（可分库，各库互不影响）</h4>
+<h4>4. 如需支持图片、网址、隐藏列、2个或3个条件查询等 ( <a target=_blank href='http://php.96448.cn' >http://php.96448.cn</a> )</h4>
+<h4>5. 本查询系统无后台，如需要后台版( <a target=_blank href='http://phpa.96448.cn' >http://phpa.96448.cn</a> )。</h4>
+<h4>6. 如需高级模糊查询版本 ( <a target=_blank href='http://phpso.96448.cn' >http://phpso.96448.cn</a> )</h4>
+<h4>7. 如需账号密码登录查询等版本 ( <a target=_blank href='https://aiyaha.taobao.com/' >https://aiyaha.taobao.com/</a> )</h4>
+</div>
+<div id="back" class="tab-content">
+<h3>常见问题排查</h3>
+<h4>1. 首页访问显示PHP代码：空间不支持PHP</h4>
+<h4>2. 首页有标题无下拉无输入框：检查空间文本读写权限</h4>
+<h4>或者检查函数mb_detect_encoding(函数mb_string)是否支持</h4>
+<h4>3. 404错误及相关无文件提示：网址对应空间无代码。</h4>
+<h4>4. 403类错误，尝试加上首页文件名访问，或者设置默认主页index.php</h4>
+<h4>5. 有内容查询不到结果等其他问题检查查询条件和数据是否完全一致</h4>
+<h4>或者检查数据和输入内容是否完全一致（很多人他出复制过来的会有空格等内容）</h4>
+<h3>表格初始化(去格式)：</h3>
+<h4>xls版查询当表格无法识别内容，可以执行以下操作。</h4>
+<h4>1. 复制现有Excel表二维结构部分到记事本；</h4>
+<h4>2. 新建Excel表并全选，右键 设置单元格格式 数字格式选文本</h4>
+<h4>3. 全选记事本内容并复制到刚才处理过的excel表，保存。</h4>
+<h3>提示：</h3>
+<h4>1. 原始版本正常，你操作后不正常，十有八九是你操作问题。</h4>
+<h4>所以建议你保留原始版本，可以放相同空间测试对比方便判断原因。</h4>
+<h4>2. 请在对应环境使用，特别是PHP分系统版本</h4>
+<h4>IIS环境建议为WINDOWS版本；windows下的NGINX，apache可以选linux版。</h4>
+<h4>3. 建议PHP5.4-5.6环境测试使用</h4>
+<h4>大部分版本php7也可用，不排除部分版本不支持PHP7.0+；</h4>
+<h4>比如xls版本，部分文件读取异常，你可以降低PHP版本试试。</h4>
+<h3>功能异常反馈</h3>
+<h4>反馈免费：15058593138@qq.com（其中手机号同微信号）</h4>
+<h4>收费技术支持：<a target=_blank href='https://aiyaha.taobao.com' >https://aiyaha.taobao.com</a>（20分钟20元）</h4>
+<h4>沟通请提供版本信息： LW1X 及 现象截图。</h4>
+<h4>加微信语音沟通，高效快捷，可为双方节省很多时间。</h4>
+</div>
+<div id="biao" class="tab-content">
+<h3>二维结构表简述</h3>
+<h4>excel表第一行是各列列标题，以后一行一条数据</h4>
+<h3>应该具备的规律</h3>
+<h4>1. 有且只有第一行为列标题（也就是字段）；多行列标题请先合并为一行。</h4>
+<h4>2. 你上传的数据首行字段得包含作为查询条件的列(且等于设置的查询条件)。</h4>
+<h4>3. 请删除：删除非二维表的内容（只留下有内容的矩形区域）。</h4>
+<h4>4. 第二行开始每行一条数据且每列内容同（比如姓名、学号列下整列都是姓名、学号）则有效。</h4>
+<h4>5. 【txt版】如果二维表表格存在回车或制表符，请先替换，具体看教程。 </h4>
+<h3>txt版数据 如单元格回车、制表符请先替换</h3>
+<h4>1. 方式一：直接excel替换：ctrl+H 调取替换，详情见后边教程 或 百度相关经验。</h4>
+<h4>查找内容处输入【按住ALT再依次输入10再放开alt】然后替换，不同软件\版本输入内容可能不同，详情百度。</h4>
+<h4>2. 方式二：公式法替换：=SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(<b>Sheet1</b>!<b>A1</b>,CHAR(13),";"),CHAR(10),";"),CHAR(9),";")。</h4>
+<h4>（Sheet1是表；A1是A列第1行单元格;Sheet1假如10行8列，在新空表第1格输入公式，然后点该单元格右下角+号，然后横拖10格再整行竖拖8列得到新表）</h4>
+<h4>3. 方式三：asp替换工具：<a target=_blank href='http://96448.cn/xls2txt/xls2txt.zip' >http://96448.cn/xls2txt/xls2txt.zip</a> </h4>
+<h4>（asp环境或者本地netbox运行，放xls文件到指定文件夹，刷新访问工具网址，选择对应文件提交得到txt）。</h4>
+<h4>4. <b>方式四：</b>php工具(csv转txt：意义替换回车制表符)：<a target=_blank href='http://tool.chalide.cn/' >http://tool.chalide.cn/</a> (在线转) </h4>
+<h4>5. <b>方式五：</b>php工具(csv转txt：意义替换回车制表符)：<a target=_blank href='http://tool.chalide.cn/down.php' >http://tool.chalide.cn/down.php</a> (自己部署)</h4>
+<h4>6. 辅助工具(可做后台管理功能：数据文件增删改及参数修改,如已有宝塔/护卫神等可忽略)</h4>
+<h4> 免费下载1: <a target=_blank href='https://download.csdn.net/download/YUJIANYUE/89049299' >https://download.csdn.net/download/YUJIANYUE/89049299</a></h4>
+<h4> 特别说明: 推荐技术员自用；请更改文件为仅自己知道的内容[安全需要],访问网址相应变化。</h4>
+<h4> 注意：不对该工具安全负责,不承担技术支持,在意者自行百度类似功能代码。</h4>
+</div>
+<div id="yous" class="tab-content">
+<h3>1. 灵活通用</h3>
+<h4>别看源码体积极小，它无需设计数据库，可以快速用于各种二维表查询。</h4>
+<h4>成绩查询、水电费物业费查询、录取、分班、分宿舍、考场分配查询等通用。</h4>
+<h3>2. 小巧易拓展</h3>
+<h4>整个源码（含演示数据）只有30-50KB，不仅运行起来自然流畅。</h4>
+<h4>易于程序员快速掌握；大大提升开发速度并降低二次开发成本。</h4>
+<h3>3. 更为安全</h3>
+<h4>源码只有俩页面，几乎只读不写，更没有sql注入等风险。</h4>
+<h4>当前大多软件都是几十MB，文件越大越复杂，安全越难以掌握。</h4>
+<h3>4. 简单易用</h3>
+<h4>无需安装（初始化），也无需修改参数，放根目录或任意目录直接使用。</h4>
+<h4>FTP基本可以实现后台功能，上传到空间即可使用。</h4>
+<h4>FTP批量上传大数据可能更低消耗服务器资源，也不受限于虚拟空间上传大小和超时时间等。</h4>
+<h4>FTP上传可多文件一拖全上，并支持断点续传等，对服务器影响小。</h4>
+<h4>在线删除不了的文件，FTP往往可以删除。</h4>
+<h3>5. 低耗内存</h3>
+<h4>无需Mysql等(大部分为非常规数据库)，低内存服务器也流畅运行(Mysql可能多耗20%+服务器内存)。</h4>
+<h3>6. 低耗网络</h3>
+<h4>现在大多页面单js文件就几百KB，加上图片就更大了。</h4>
+<h4>一个网页往往超过1MB。本查询页一个页面只有30KB左右。</h4>
+<h4>相当于在同等带宽资源下，网络并发量可以提升几十倍。</h4>
+<h4>目前阿里云、腾讯云等8MB（实际1MB）的带宽超1000多元每年。</h4>
+<h4>所以：节省很多网络费用的同时，大幅度提升查询的并发量。</h4>
+<h3>7. 低耗读写</h3>
+<h4>本查询几乎只读不写；小巧的网页也将在JS和图片的读取方面节约大量资源。</h4>
+</div>
+<div id="soft" class="tab-content">
+<h3>本人免费实用源码作品下载</h3>
+<h4>相继免费公布了asp+txt,asp+excel,asp+access三大系列asp免费查询。</h4>
+<h4>相继免费公布了php+txt,php+xls,php+csv,php+sqlite,php+access,php+mysql六大系列免费查询。</h4>
+<h4>详情百度:</h4>
+<h4>PHP+mysql雪里开轻量级报修系统 V1.0Beta</h4>
+<h4>PHP7+MySQL5.6 爱补课的学生请假系统 V1.0Beta</h4>
+<h4>PHP7+MySQL5.6 雪里开简易预约制访客管理系统V1.0</h4>
+<h4>发立得信息发布系统房屋信息版(php+mysql)V1.0版</h4>
+<h4>卡立得PHP+mysql通用卡券系统物流领取版 V2024.12</h4>
+<h4>php7+mysql5.6单用户中医处方管理系统V1.0</h4>
+<h4>PHP7+MySQL5.6 查立得轻量级公交查询系统</h4>
+<h4>PHP7+MySQL5.6 查立得源码授权系统DNS验证版</h4>
+<h4>PHP黑白胶卷底片图转彩图功能 V2025.05.15</h4>
+<h4>费心投票PHP+MySQL轻量级投票系统 V1.0</h4>
+<h4>php+mysql活动报名学生选课产品预定旅游报名系统网站源码</h4>
+<h4>易答题php+mysql医院排队预约与核销功能系统</h4>
+<h4>易答题PHP通用工资条成绩单自动排版打印工具V1.0</h4>
+<h4>pdf电子准考证查询下载系统(实证效果可照片)V1.0</h4>
+<h4>php成绩分析系统单科分数分布分析202507</h4>
+<h4>php在线生成pdf选民证系统支持中文(小工具)</h4>
+<h4>PHP成语接龙单文件ajax网页版</h4>
+<h4>PHP+MYSQL自用文件分享系统V1.0</h4>
+<h4>PHP生成pdf格式准考证带照片完整示范</h4>
+<h4>PHP工具:实现Excel转Mysql工具自动字段长度</h4>
+<h4>查分吧PHP多条件都输对版已有表万用查询系统</h4>
+<h4>php+mysql单条件通用防伪溯源查询系统</h4>
+<h4>php大文件分片上传完整案列</h4>
+<h4>查分吧PHP两条件都输对版通用查询系统</h4>
+<h4>搜立得PHP+Csv单条件通用搜索系统</h4>
+<h4>php+MySql已有数据表通用搜索可增删改查</h4>
+<h4>asp+access通用查询系统可增删改查分页</h4>
+<h4>php+txt 2级联动通用查询系统</h4>
+<h4>查立得快搜系统(asp+xls) v1.0</h4>
+<h4>查立得快搜系统(php+xls) v1.0</h4>
+<h4>查立得快搜系统(php+txt) v20201106</h4>
+<h4>查立得快搜系统(php+Mysql) v20220208</h4>
+<h4>查立得万能查（php+mysql） v20220512</h4>
+<h4>Php+Xlsx智适应通用考试成绩查分系统</h4>
+<h4>php单文件实现ajax多文件上传带进度条</h4>
+<h4>Asp+Csv智适应通用成绩查询系统</h4>
+<h4>大学生村官成绩查询系统</h4>
+<h4>查立得快搜系统(asp+xls)</h4>
+<h4>php+mysql简易口罩限量领取系统</h4>
+<h4>php简易扫码付教育收费系统</h4>
+<h4>公众号用聊天式万用查询系统</h4>
+<h4>xls转txt等工具集</h4>
+<h4>php域名解析信息查询网页版小工具</h4>
+<h4>Php+Mysql网页版通用考试成绩查询系统</h4>
+<h4>asp+Access通用考试查分系统</h4>
+<h4>php+access通用考试查分系统</h4>
+<h4>php+sqlite通用成绩查询系统</h4>
+<h4>域名解析信息查询小程序</h4>
+<h4>PHP图书信息模糊检索系统</h4>
+<h4>淘宝内部优惠券广告展示系统</h4>
+<h4>防伪查询系统</h4>
+<h4>全国大学英语四六级(CET4/CET6)成绩查询系统</h4>
+<h4>asp+txt维修点快递进度查询系统</h4>
+<h4>PHP+Csv(Excel)通用成绩查询系统手机版</h4>
+<h4>asp通用日历式值班查询系统</h4>
+<h4>php+excel通用课表查询系统</h4>
+<h4>PHP微信公众号接口开发在线调试工具</h4>
+<h4>PHP+Csv(Excel)通用成绩查询系统</h4>
+<h4>图片base64编码互转工具</h4>
+<h4>PHP+excel通用成绩查询系统</h4>
+<h4>PHP+excel通用成绩查询系统</h4>
+<h4>PHP+excel多用途查询系统</h4>
+<h4>php+Txt成绩查询系统通用版</h4>
+<h4>7384手机号码归属地查询系统</h4>
+<h4>纯Js省市县三级联动快递增强版</h4>
+<h4>asp+excel图书在线检索系统手机版</h4>
+<h4>asp身份证批量查询与解读系统</h4>
+<h4>asp微信公众号接口调试工具</h4>
+<h4>asp+excel图书在线检索系统</h4>
+<h4>Excel二维表数据转SELECT CASE工具</h4>
+<h4>Excel二维表转文本工具</h4>
+<h4>php+Txt多用途查询系统</h4>
+<h4>asp网站速度批量查询系统</h4>
+<h4>asp+txt通用查询系统手机版</h4>
+<h4>无名公交查询系统小偷</h4>
+<h4>7384长微博文字生成图片系统</h4>
+<h4>仿吆喝网多图片上传源码</h4>
+<h4>7384迷你广告信息发布系统</h4>
+<h4>7384微招聘系统</h4>
+<h4>asp+txt通用工资查询系统</h4>
+<h4>asp+txt通用成绩查询系统</h4>
+<h4>asp+excel多用途查询系统</h4>
+<h4>7384学生成绩查询系统</h4>
+<h4>7384城市公交网查询系统源码</h4>
+<h4>ip转城市(asp+access)</h4>
+<h4>身份证号码查询与验证系统(For人口普查版)</h4>
+<h4>山寨广告招贴网</h4>
+<h4>asp Db browser For access （asp access browser）asp版access数据库浏览器</h4>
+<h4>php Db browser For sqlite （php sqlite browser）php版sqlite数据库浏览器</h4>
+<h4>单数据文件双条件下拉选择查询系统(二级联动筛选查询系统)</h4>
+<h4>asp+access公众号用通用领码发码随机抽奖系统</h4>
+<h4>asp微信公众号自动回复开发案列之新闻查询机器人</h4>
+<h4>等 非全部</h4>
+</div>
 
 
 </div>
-</fieldset>
 
-</div>
-
-<div class="boto" id="boto">
-&copy;2018&nbsp;  <a href="http://www.12391.net/"  target="_blank"> 12391.net</a>
-</div>
-
-</div>
-</div>
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tabbuttons = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 </body>
 </html>
